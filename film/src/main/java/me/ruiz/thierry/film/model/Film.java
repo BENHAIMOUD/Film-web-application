@@ -30,9 +30,8 @@ public class Film {
     //Constructors
     public Film() { }
 
-    public Film(String title, String image) {
+    public Film(String title) {
         this.title = title;
-        this.image = image;
     }
     //Setters & Getters
     public long getIdFilm() {

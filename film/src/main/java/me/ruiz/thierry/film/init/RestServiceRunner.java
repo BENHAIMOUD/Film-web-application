@@ -2,8 +2,10 @@ package me.ruiz.thierry.film.init;
 
 import me.ruiz.thierry.film.model.Actor;
 import me.ruiz.thierry.film.model.Director;
+import me.ruiz.thierry.film.model.Film;
 import me.ruiz.thierry.film.repository.ActorRepository;
 import me.ruiz.thierry.film.repository.DirectorRepository;
+import me.ruiz.thierry.film.repository.FilmRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class RestServiceRunner implements CommandLineRunner {
     private ActorRepository actorRepository;
     @Autowired
     DirectorRepository directorRepository;
+    @Autowired
+    FilmRepository filmRepository;
 
 
 
@@ -35,6 +39,8 @@ public class RestServiceRunner implements CommandLineRunner {
         directorRepository.save(director1);
 
         //films
+        Film film1 = new Film("See");
+        filmRepository.save(film1);
 
 
 
