@@ -73,7 +73,7 @@ public class FilmServiceImpl implements FilmService{
         try {
             Film result = filmRepository.findById(id).get();
             result.setTitle(film.getTitle());
-            result.setImage(film.getImage());
+            result.setImageFilm(film.getImageFilm());
 
             return filmRepository.save(film);
         } catch (NoSuchElementException ex) {

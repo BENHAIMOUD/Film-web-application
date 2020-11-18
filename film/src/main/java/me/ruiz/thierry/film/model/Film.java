@@ -2,6 +2,8 @@ package me.ruiz.thierry.film.model;
 
 
 
+
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -17,31 +19,47 @@ public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-
     private long idFilm ;
+    @Column(name = "title")
     private String title;
-    private String image;
-//    @ManyToMany(mappedBy = "Actor")
-//    Set<Actor> actors;
-//
-//    @ManyToMany(mappedBy = "Director")
-//    Set<Director> directors;
+    @Column(name = "image")
+    private String imageFilm;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "film_actor", joinColumns = {@JoinColumn(name = "film_id")},
+            inverseJoinColumns = {@JoinColumn(name = "actor_id")})
+    private Set<Actor> actors = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "director_actor", joinColumns = {@JoinColumn(name = "film_id")},
+            inverseJoinColumns = {@JoinColumn(name = "director_id")})
+    private Set<Director> directors = new HashSet<>();
 
     //Constructors
     public Film() { }
 
-    public Film(String title) {
+    public Film(String title, Set<Director> directors, Set<Actor> actors) {
         this.title = title;
+        this.actors = actors;
+        this.directors = directors;
     }
     //Setters & Getters
     public long getIdFilm() {
         return idFilm;
     }
+
+    public Set<Actor> getActors() {
+        return actors;
+    }
+    public Set<Director> getDirectors() {
+        return directors;
+    }
+
     public String getTitle() {
         return title;
     }
-    public String getImage() {
-        return image;
+    public String getImageFilm() {
+        return imageFilm;
     }
     public void setIdFilm(long idFilm) {
         this.idFilm = idFilm;
@@ -49,7 +67,15 @@ public class Film {
     public void setTitle(String title) {
         this.title = title;
     }
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageFilm(String imageFilm) {
+        this.imageFilm = imageFilm;
+    }
+
+    public void setActors(Set<Actor> actors) {
+        this.actors = actors;
+    }
+
+    public void setDirectors(Set<Director> directors) {
+        this.directors = directors;
     }
 }

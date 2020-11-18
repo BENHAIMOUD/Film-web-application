@@ -2,6 +2,7 @@ package me.ruiz.thierry.film.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,12 +29,9 @@ public class Director implements Person , Serializable {
     @Column(name = "image")
     private String image;
 
-//    @OneToMany(mappedBy = "director", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JoinTable(
-//            name = "film_dirictor",
-//            joinColumns = @JoinColumn(name = "film_id"),
-//            inverseJoinColumns = @JoinColumn(name = "director_id"))
-//    private List<Film> films = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "directors")
+    private Set<Film> films = new HashSet<>();
+
 
     //Constructors
     public Director() { }
