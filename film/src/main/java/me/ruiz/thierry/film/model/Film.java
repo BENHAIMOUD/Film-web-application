@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author Ayoub BENHAIMOUD.<ayoubbenhaimoud@gmail.com>
@@ -20,8 +21,11 @@ public class Film {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private long idFilm ;
+
+    @NotBlank
     @Column(name = "title")
     private String title;
+
     @Column(name = "image")
     private String imageFilm;
 
@@ -38,7 +42,7 @@ public class Film {
     //Constructors
     public Film() { }
 
-    public Film(String title, Set<Director> directors, Set<Actor> actors) {
+    public Film(@NotBlank String title, Set<Director> directors, Set<Actor> actors) {
         this.title = title;
         this.actors = actors;
         this.directors = directors;

@@ -2,14 +2,10 @@ package me.ruiz.thierry.film.model;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-//import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotBlank;
 
 /**
  * @author Ayoub BENHAIMOUD.<ayoubbenhaimoud@gmail.com>
@@ -23,10 +19,15 @@ public class Actor implements Person , Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private long idActor ;
+
+	@NotBlank
 	@Column(name = "first_name")
 	private String firstName ;
+
+	@NotBlank
 	@Column(name = "last_name")
 	private String lastName ;
+
 	@Column(name = "image")
 	private String image;
 
@@ -37,7 +38,7 @@ public class Actor implements Person , Serializable {
 	//Constructors
 	public Actor() {}
 
-	public Actor(String firstName, String lastName) {
+	public Actor(@NotBlank String firstName, @NotBlank String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}

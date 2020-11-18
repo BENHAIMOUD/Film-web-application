@@ -9,23 +9,28 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import me.ruiz.thierry.film.RestServiceApplication;
-
+/**
+ * @author Ayoub BENHAIMOUD.<ayoubbenhaimoud@gmail.com>
+ * @created on 18/11/2020.
+ */
 @Configuration
 @Order(Ordered.LOWEST_PRECEDENCE)
 public class AuthenticationProvider extends WebSecurityConfigurerAdapter {
 
-    @SuppressWarnings("unused")
-    private static final Logger logger = LoggerFactory.getLogger(RestServiceApplication.class);
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("admin").password("admin").roles("ADMIN");
+                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
     }
-
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     @Override
